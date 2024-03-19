@@ -11,15 +11,22 @@ createApp({
   },
 
   methods: {
+    //Funzione di chiamata
     getApi() {
       for (let i = 0; i < this.totEmail; i++) {
-        axios.get(this.apiUrl).then((result) => {
-          this.emailListTemp[i] = result.data.response;
-          this.isListCompleted();
-        });
+        axios
+          .get(this.apiUrl)
+          .then((result) => {
+            this.emailListTemp[i] = result.data.response;
+            this.isListCompleted();
+          })
+          .catch((error) => {
+            console.log("Errore di chiamata", error);
+          });
       }
     },
 
+    //Funzione di controllo sulla lunghezza della lista di email
     isListCompleted() {
       if (this.emailListTemp.length === this.totEmail) {
         this.emailList = this.emailListTemp;
